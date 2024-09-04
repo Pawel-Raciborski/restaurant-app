@@ -6,6 +6,6 @@ create table order_dish(
     CONSTRAINT fk_order_dish_dish FOREIGN KEY (dish_id)
                        REFERENCES dish(id),
     CONSTRAINT fk_order_dish_order FOREIGN KEY (order_id)
-                       REFERENCES order(id)
+                       REFERENCES order_summary(id)
 
 )

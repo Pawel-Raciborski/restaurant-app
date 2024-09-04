@@ -1,4 +1,4 @@
-create table order(
+create table order_summary(
     id SERIAL NOT NULL PRIMARY KEY,
     client_id INT NOT NULL,
     order_date timestamp with time zone NOT NULL,

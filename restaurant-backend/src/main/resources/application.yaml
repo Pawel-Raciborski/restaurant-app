@@ -1,0 +1,19 @@
+server:
+    port: 8080
+    servlet:
+        context-path: /api/v1/
+spring:
+    datasource:
+        driver-class-name: org.postgresql.Driver
+        url: jdbc:postgresql://localhost:5432/restaurant
+        username: postgres
+        password:
+    jpa:
+        database: restaurant
+        hibernate:
+            ddl-auto: create-drop
+        show-sql: true
+logging:
+    level:
+        root: info
+        sql: trace
