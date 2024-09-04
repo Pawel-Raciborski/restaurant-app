@@ -7,9 +7,8 @@ spring:
         driver-class-name: org.postgresql.Driver
         url: jdbc:postgresql://localhost:5432/restaurant
         username: postgres
-        password:
+        password: postgres
     jpa:
-        database: restaurant
         hibernate:
             ddl-auto: create-drop
         show-sql: true

@@ -10,5 +10,5 @@ CREATE TABLE dish
     CONSTRAINT fk_dish_recipe FOREIGN KEY (recipe_id)
         REFERENCES recipe (id),
     CONSTRAINT fk_dish_category FOREIGN KEY (category_id)
-        REFERENCES category (id)
+        REFERENCES dish_category (id)
 );

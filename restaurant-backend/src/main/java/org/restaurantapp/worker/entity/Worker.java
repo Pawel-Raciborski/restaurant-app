@@ -1,10 +1,14 @@
-package org.restaurantapp.client.entity;
+package org.restaurantapp.worker.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.restaurantapp.restaurant_menu.entity.TimeOfDayMenu;
+
+import java.time.LocalDateTime;
+import java.util.Set;
 
 @Builder
 @Getter
@@ -16,17 +20,18 @@ public class Worker {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private Integer id;
     private String pesel;
     private String name;
     private String surname;
     private String password;
     private String email;
     @Column(name = "date_of_employment")
-    private String dateOfEmployment;
+    private LocalDateTime dateOfEmployment;
 
-    @ManyToMany
-    @JoinTable(
-            name = "worker_order"
-    )
+    @OneToMany(mappedBy = "workerUpdated")
+    private Set<TimeOfDayMenu> updatedMenus;
+    
+    @OneToMany(mappedBy = "worker")
+    private Set<WorkerOrder> workerOrders;
 }

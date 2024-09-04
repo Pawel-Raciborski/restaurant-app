@@ -1,4 +1,4 @@
-CREATE TABLE time_of_day_dishes
+CREATE TABLE time_of_day_dish
 (
     id                           SERIAL NOT NULL PRIMARY KEY,
     time_of_day_menu_category_id INT    NOT NULL,
