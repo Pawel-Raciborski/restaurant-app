@@ -1,25 +1,25 @@
-package org.restaurantapp.auth.domain.role;
+package org.restaurantapp.auth.domain.permission;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.restaurantapp.auth.domain.permission.PermissionRole;
 
 import java.util.Set;
 
 @Builder
 @Getter
 @Entity
-@Table(name = "role")
+@Table(name = "permission")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Role {
+public class Permission {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
-    @OneToMany(mappedBy = "role")
+
+    @OneToMany(mappedBy = "permission")
     private Set<PermissionRole> permissionRoles;
 }

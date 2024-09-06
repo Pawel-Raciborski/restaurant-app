@@ -1,10 +1,7 @@
 package org.restaurantapp.auth.domain.user;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.restaurantapp.auth.domain.role.Role;
 
 @Builder
@@ -13,6 +10,7 @@ import org.restaurantapp.auth.domain.role.Role;
 @Table(name = "user_role")
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(of = "id")
 public class UserRole {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

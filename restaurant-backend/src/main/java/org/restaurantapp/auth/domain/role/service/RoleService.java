@@ -5,10 +5,16 @@ import org.restaurantapp.auth.domain.role.Role;
 import org.restaurantapp.auth.domain.role.exception.RoleExistsException;
 import org.restaurantapp.auth.domain.role.exception.RoleNotFoundException;
 import org.restaurantapp.auth.domain.role.repository.RoleRepository;
+import org.restaurantapp.auth.domain.user.User;
+import org.restaurantapp.auth.domain.user.dto.AddUserRolesDto;
+import org.restaurantapp.auth.domain.user.service.UserRoleService;
+import org.restaurantapp.auth.domain.user.service.UserService;
+import org.restaurantapp.exception.AppException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -34,5 +40,9 @@ public class RoleService {
                 .build();
 
         return roleRepository.save(roleToCreate);
+    }
+
+    public List<Role> findAllByName(List<String> roleNames) {
+        return roleRepository.findAllByNames(roleNames);
     }
 }

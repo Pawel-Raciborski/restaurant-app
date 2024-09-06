@@ -1,6 +1,8 @@
 package org.restaurantapp.auth.domain.user.service;
 
 import lombok.RequiredArgsConstructor;
+import org.restaurantapp.auth.domain.user.dto.AddUserRolesDto;
+import org.restaurantapp.auth.domain.user.exception.UserNotFoundException;
 import org.restaurantapp.auth.dto.RegisterUserDataFormDto;
 import org.restaurantapp.auth.domain.user.User;
 import org.restaurantapp.auth.domain.role.repository.UserRepository;
@@ -37,5 +39,16 @@ public class UserService {
                 .email(registerUserDataFormDto.email())
                 .password(passwordEncoder.encode(registerUserDataFormDto.password()))
                 .build();
+    }
+    public User findByEmail(String email) {
+        return userRepository
+                .findByEmail(email)
+                .orElseThrow(
+                        () -> new UserNotFoundException("User with email: [%s] not found!".formatted(email),HttpStatus.NOT_FOUND)
+                );
+    }
+
+    public void update(User updatedUser) {
+        userRepository.save(updatedUser);
     }
 }
