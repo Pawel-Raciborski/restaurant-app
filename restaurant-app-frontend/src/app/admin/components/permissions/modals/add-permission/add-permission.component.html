@@ -1,0 +1,23 @@
+<mat-dialog-content>
+  <div class="container-fluid ">
+    <div class="row mb-3">
+      <h4>Dodawanie permisji</h4>
+    </div>
+    <div class="row">
+      <form #permissionForm="ngForm" (ngSubmit)="onPermissionFormSubmit(permissionForm)">
+        <div class="mb-3">
+          <label for="permissionName" class="form-label p-0">Nazwa permisji</label>
+          <input type="text" class="form-control" id="permissionName" ngModel #permissionName/>
+        </div>
+      </form>
+    </div>
+    <div class="row justify-content-end">
+      <div class="col-md-3 text-end">
+        <button class="btn btn-danger" type="submit">Anuluj</button>
+      </div>
+      <div class="col-md-3 text-center">
+        <button class="btn btn-success" type="submit">Dodaj</button>
+      </div>
+    </div>
+  </div>
+</mat-dialog-content>
