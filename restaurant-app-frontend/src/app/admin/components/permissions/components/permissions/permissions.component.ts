@@ -1,32 +1,43 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
-import {AddPermissionComponent} from "../modals/add-permission/add-permission.component";
+import {AddPermissionComponent} from "../../modals/add-permission/add-permission.component";
 import {Observable} from "rxjs";
-import {Permission} from "../model/permission";
-import {CreatePermissionDto} from "../dto/create-permission-dto";
-import {PermissionsService} from "../services/permissions.service";
+import {Permission} from "../../model/permission";
+import {CreatePermissionDto} from "../../dto/create-permission-dto";
+import {PermissionsService} from "../../services/permissions.service";
+import {PermissionsListComponent} from "../permissions-list/permissions-list.component";
 
 @Component({
   selector: 'app-permissions',
   standalone: true,
-  imports: [],
+  imports: [
+    PermissionsListComponent
+  ],
   templateUrl: './permissions.component.html',
   styleUrl: './permissions.component.css'
 })
-export class PermissionsComponent {
+export class PermissionsComponent implements OnInit{
   permissions: Permission[] = [];
   constructor(private matDialog: MatDialog, private permissionService: PermissionsService) {
   }
+
+  ngOnInit(): void {
+        this.permissionService.getFirstPage().subscribe(data => {
+          this.permissions = data;
+        });
+    }
 
   addPermission() {
     const addPermissionDialog = this.matDialog.open(AddPermissionComponent, {});
 
     addPermissionDialog.afterClosed()
       .subscribe((data: CreatePermissionDto) => {
-        this.permissionService.create(data.permissionName)
-          .subscribe(responseData => {
-            this.permissions.push(responseData);
-          });
+        if(data){
+          this.permissionService.create(data.permissionName)
+            .subscribe(responseData => {
+              this.permissions.push(responseData);
+            });
+        }
       });
   }
 }

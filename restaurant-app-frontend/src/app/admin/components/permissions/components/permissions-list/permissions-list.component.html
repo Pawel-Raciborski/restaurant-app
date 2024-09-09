@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="row justify-content-center">
+    @if(permissions.length > 0){
+      <div class="col-md">
+        <table class="table table-hover">
+          <thead>
+          <tr>
+            <th>Id</th>
+            <th>Nazwa</th>
+          </tr>
+          </thead>
+          <tbody>
+            @for (permission of permissions; track permission.id){
+              <tr>
+                <td>{{permission.id}}</td>
+                <td>{{permission.name}}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    } @else {
+      <p class="text-bg-primary">Lista jest pusta</p>
+    }
+  </div>
+  @if (lastLoadedPageSize == 10){
+    <div class="row justify-content-center">
+      <div class="col-md-4 text-center">
+        <button class="btn btn-dark" (click)="loadMore()">Załaduj więcej</button>
+      </div>
+    </div>
+  }
+</div>

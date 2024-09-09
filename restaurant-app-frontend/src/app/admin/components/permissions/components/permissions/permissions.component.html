@@ -1,6 +1,15 @@
-<p>permissions works!</p>
-<button (click)="addPermission()">Dodaj permisje</button>
+<div class="container">
+  <div class="modal-header">
+    <h4>Zarządzanie permisjami</h4>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <button class="btn btn-success" (click)="addPermission()">Dodaj permisje</button>
+    </div>
+  </div>
+  <div class="row">
+    <app-permissions-list [permissions]="permissions"></app-permissions-list>
+  </div>
+</div>
 
-@for(permission of permissions; track permission.id){
-  <h5>{{permission.name}}</h5>
-}
+

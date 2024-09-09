@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {PermissionsComponent} from "../permissions/permissions/permissions.component";
+import {PermissionsComponent} from "../permissions/components/permissions/permissions.component";
 
 @Component({
   selector: 'app-roles',

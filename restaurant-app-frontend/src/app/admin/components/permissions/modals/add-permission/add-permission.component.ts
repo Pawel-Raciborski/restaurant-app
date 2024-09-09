@@ -1,6 +1,12 @@
-import { Component } from '@angular/core';
+import {Component, viewChild, ViewChild} from '@angular/core';
 import {FormGroup, FormsModule, NgForm} from "@angular/forms";
-import {MatDialogActions, MatDialogContainer, MatDialogContent, MatDialogTitle} from "@angular/material/dialog";
+import {
+  MatDialogActions,
+  MatDialogContainer,
+  MatDialogContent,
+  MatDialogRef,
+  MatDialogTitle
+} from "@angular/material/dialog";
 import {MatButton} from "@angular/material/button";
 import {MatFormField} from "@angular/material/form-field";
 
@@ -20,7 +26,18 @@ import {MatFormField} from "@angular/material/form-field";
   styleUrl: './add-permission.component.css'
 })
 export class AddPermissionComponent {
-  onPermissionFormSubmit(permissionForm: NgForm) {
-    console.log(permissionForm);
+  permissionForm = viewChild.required<NgForm>('permissionForm');
+  constructor(private currentModal: MatDialogRef<AddPermissionComponent>) {
+  }
+  onPermissionFormSubmit(permissionForm: NgForm): void {
+    if(!permissionForm.valid){
+      return;
+    }else {
+      this.currentModal.close(permissionForm.value);
+    }
+  }
+
+  closeModal() {
+    this.currentModal.close();
   }
 }

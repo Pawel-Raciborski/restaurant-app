@@ -1,4 +1,4 @@
-<mat-dialog-content>
+<mat-dialog-content >
   <div class="container-fluid ">
     <div class="row mb-3">
       <h4>Dodawanie permisji</h4>
@@ -7,17 +7,20 @@
       <form #permissionForm="ngForm" (ngSubmit)="onPermissionFormSubmit(permissionForm)">
         <div class="mb-3">
           <label for="permissionName" class="form-label p-0">Nazwa permisji</label>
-          <input type="text" class="form-control" id="permissionName" ngModel #permissionName/>
+          <input type="text" class="form-control" id="permissionName" name="permissionName" ngModel required #permissionName="ngModel"/>
+          @if (!permissionName.dirty && permissionName.invalid && permissionName.touched){
+            <small class="text-danger">Nazwa nie może być pusta!</small>
+          }
+        </div>
+        <div class="row justify-content-end">
+          <div class="col-md-3 text-end">
+            <button class="btn btn-danger" type="reset" (click)="closeModal()">Anuluj</button>
+          </div>
+          <div class="col-md-3 text-center">
+            <button class="btn btn-success" type="submit">Dodaj</button>
+          </div>
         </div>
       </form>
-    </div>
-    <div class="row justify-content-end">
-      <div class="col-md-3 text-end">
-        <button class="btn btn-danger" type="submit">Anuluj</button>
-      </div>
-      <div class="col-md-3 text-center">
-        <button class="btn btn-success" type="submit">Dodaj</button>
-      </div>
     </div>
   </div>
 </mat-dialog-content>
