@@ -5,6 +5,8 @@ import org.restaurantapp.auth.domain.permission.Permission;
 import org.restaurantapp.auth.domain.permission.exception.PermissionAlreadyExistException;
 import org.restaurantapp.auth.domain.permission.exception.PermissionNotFoundException;
 import org.restaurantapp.auth.domain.permission.repository.PermissionRepository;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,5 +41,11 @@ public class PermissionService {
 
     public List<Permission> findAllByName(List<String> permissionNames) {
         return permissionRepository.findAllWhereNameIn(permissionNames);
+    }
+
+    public List<Permission> findAllPaged(Integer page, Integer pageSize) {
+        Pageable pageable = PageRequest.of(page,pageSize);
+
+        return permissionRepository.findAllPaged(pageable).getContent();
     }
 }

@@ -1,0 +1,6 @@
+<p>permissions works!</p>
+<button (click)="addPermission()">Dodaj permisje</button>
+
+@for(permission of permissions; track permission.id){
+  <h5>{{permission.name}}</h5>
+}
