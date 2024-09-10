@@ -1,7 +1,6 @@
 package org.restaurantapp.auth.domain.permission.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.restaurantapp.auth.domain.permission.Permission;
 import org.restaurantapp.auth.domain.permission.dto.PermissionDto;
 import org.restaurantapp.auth.domain.permission.mapper.PermissionMapper;
 import org.restaurantapp.auth.domain.permission.service.PermissionService;
@@ -9,7 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -37,5 +35,14 @@ public class PermissionController {
                 .toList();
 
         return ResponseEntity.ok(pagedPermissions);
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<Void> remove(
+            @RequestParam(name = "name") String permissionName
+    ){
+        permissionService.delete(permissionName);
+
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 }

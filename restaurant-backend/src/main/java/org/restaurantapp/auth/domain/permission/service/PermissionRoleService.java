@@ -27,4 +27,8 @@ public class PermissionRoleService {
 
         return permissionRoleRepository.save(permissionRoleToCreate);
     }
+
+    public void removePermissionFromRoles(Permission permissionToRemove) {
+        permissionRoleRepository.deleteAllWherePermission(permissionToRemove.getId());
+    }
 }

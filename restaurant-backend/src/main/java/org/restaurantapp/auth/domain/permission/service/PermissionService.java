@@ -18,6 +18,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class PermissionService {
     private final PermissionRepository permissionRepository;
+    private final PermissionRoleService permissionRoleService;
 
     @Transactional
     public Permission create(String permissionName) {
@@ -47,5 +48,13 @@ public class PermissionService {
         Pageable pageable = PageRequest.of(page,pageSize);
 
         return permissionRepository.findAllPaged(pageable).getContent();
+    }
+
+    @Transactional
+    public void delete(String permissionName) {
+        Permission permissionToRemove = findByName(permissionName);
+
+        permissionRoleService.removePermissionFromRoles(permissionToRemove);
+        permissionRepository.delete(permissionToRemove);
     }
 }
