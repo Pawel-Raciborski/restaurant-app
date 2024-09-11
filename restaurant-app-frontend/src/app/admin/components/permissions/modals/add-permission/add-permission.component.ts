@@ -26,7 +26,6 @@ import {MatFormField} from "@angular/material/form-field";
   styleUrl: './add-permission.component.css'
 })
 export class AddPermissionComponent {
-  permissionForm = viewChild.required<NgForm>('permissionForm');
   constructor(private currentModal: MatDialogRef<AddPermissionComponent>) {
   }
   onPermissionFormSubmit(permissionForm: NgForm): void {
