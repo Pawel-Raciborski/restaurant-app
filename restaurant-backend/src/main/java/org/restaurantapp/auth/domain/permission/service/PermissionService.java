@@ -52,7 +52,7 @@ public class PermissionService {
 
     @Transactional
     public void delete(String permissionName) {
-        Permission permissionToRemove = findByName(permissionName);
+        Permission permissionToRemove = findByName(permissionName); // TEST
 
         permissionRoleService.removePermissionFromRoles(permissionToRemove);
         permissionRepository.delete(permissionToRemove);
