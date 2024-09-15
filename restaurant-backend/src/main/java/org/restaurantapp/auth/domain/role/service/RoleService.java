@@ -10,6 +10,8 @@ import org.restaurantapp.auth.domain.user.dto.AddUserRolesDto;
 import org.restaurantapp.auth.domain.user.service.UserRoleService;
 import org.restaurantapp.auth.domain.user.service.UserService;
 import org.restaurantapp.exception.AppException;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,5 +46,11 @@ public class RoleService {
 
     public List<Role> findAllByName(List<String> roleNames) {
         return roleRepository.findAllByNames(roleNames);
+    }
+
+    public List<Role> findPaged(Integer page, Integer pageSize) {
+        Pageable pageable = PageRequest.of(page,pageSize);
+
+        return roleRepository.findAll(pageable).getContent();
     }
 }
