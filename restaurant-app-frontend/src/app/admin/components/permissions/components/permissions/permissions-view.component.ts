@@ -13,10 +13,10 @@ import {PermissionsListComponent} from "../permissions-list/permissions-list.com
   imports: [
     PermissionsListComponent
   ],
-  templateUrl: './permissions.component.html',
-  styleUrl: './permissions.component.css'
+  templateUrl: './permissions-view.component.html',
+  styleUrl: './permissions-view.component.css'
 })
-export class PermissionsComponent implements OnInit{
+export class PermissionsViewComponent implements OnInit{
   permissions: Permission[] = [];
   constructor(private matDialog: MatDialog, private permissionService: PermissionsService) {
   }

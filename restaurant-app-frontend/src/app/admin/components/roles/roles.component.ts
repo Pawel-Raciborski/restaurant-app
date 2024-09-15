@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
-import {PermissionsComponent} from "../permissions/components/permissions/permissions.component";
+import {PermissionsViewComponent} from "../permissions/components/permissions/permissions-view.component";
+import {RolesViewComponent} from "./components/roles/roles-view.component";
 
 @Component({
   selector: 'app-roles',
   standalone: true,
   imports: [
-    PermissionsComponent
+    PermissionsViewComponent,
+    RolesViewComponent
   ],
   templateUrl: './roles.component.html',
   styleUrl: './roles.component.css'
