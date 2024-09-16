@@ -7,9 +7,14 @@ import org.restaurantapp.auth.domain.permission.exception.PermissionRoleAlreadyE
 import org.restaurantapp.auth.domain.permission.repository.RolePermissionRepository;
 import org.restaurantapp.auth.domain.role.Role;
 import org.springframework.data.domain.Example;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -30,5 +35,11 @@ public class RolePermissionService {
 
     public void removePermissionFromRoles(Permission permissionToRemove) {
         rolePermissionRepository.deleteAllWherePermission(permissionToRemove.getId());
+    }
+
+    public List<Permission> findPermissionsForRole(String roleName, Integer page, Integer pageSize) {
+        Pageable pageable = PageRequest.of(page,pageSize, Sort.by("p.name"));
+
+        return rolePermissionRepository.findPermissionsForRole(roleName,pageable);
     }
 }
