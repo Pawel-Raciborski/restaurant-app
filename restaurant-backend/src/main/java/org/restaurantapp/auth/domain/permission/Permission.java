@@ -21,5 +21,5 @@ public class Permission {
     private String name;
 
     @OneToMany(mappedBy = "permission")
-    private Set<PermissionRole> permissionRoles;
+    private Set<RolePermission> rolePermissions;
 }

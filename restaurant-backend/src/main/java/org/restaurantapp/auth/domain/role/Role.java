@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.restaurantapp.auth.domain.permission.PermissionRole;
+import org.restaurantapp.auth.domain.permission.RolePermission;
 
 import java.util.Set;
 
@@ -21,5 +21,5 @@ public class Role {
     private Integer id;
     private String name;
     @OneToMany(mappedBy = "role")
-    private Set<PermissionRole> permissionRoles;
+    private Set<RolePermission> rolePermissions;
 }

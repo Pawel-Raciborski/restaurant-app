@@ -18,7 +18,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class PermissionService {
     private final PermissionRepository permissionRepository;
-    private final PermissionRoleService permissionRoleService;
+    private final RolePermissionService rolePermissionService;
 
     @Transactional
     public Permission create(String permissionName) {
@@ -54,7 +54,7 @@ public class PermissionService {
     public void delete(String permissionName) {
         Permission permissionToRemove = findByName(permissionName); // TEST
 
-        permissionRoleService.removePermissionFromRoles(permissionToRemove);
+        rolePermissionService.removePermissionFromRoles(permissionToRemove);
         permissionRepository.delete(permissionToRemove);
     }
 }

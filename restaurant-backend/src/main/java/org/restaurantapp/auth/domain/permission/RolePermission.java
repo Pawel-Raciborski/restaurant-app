@@ -13,7 +13,7 @@ import org.restaurantapp.auth.domain.role.Role;
 @Table(name = "permission_role")
 @NoArgsConstructor
 @AllArgsConstructor
-public class PermissionRole {
+public class RolePermission {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

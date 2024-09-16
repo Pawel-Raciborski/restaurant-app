@@ -19,12 +19,12 @@ public class RoleController {
     private final RoleService roleService;
 
     @PostMapping("/create")
-    public ResponseEntity<Void> create(@RequestParam(name = "roleName") String roleName) {
-        Role createdRole = roleService.create(roleName);
+    public ResponseEntity<RoleDto> create(@RequestParam(name = "roleName") String roleName) {
+        RoleDto createdRole = RoleMapper.INSTANCE.mapFromEntity(roleService.create(roleName));
 
         return ResponseEntity
-                .created(URI.create("/api/v1/roles/create/" + createdRole.getId()))
-                .build();
+                .status(HttpStatus.CREATED)
+                .body(createdRole);
     }
 
     @GetMapping
