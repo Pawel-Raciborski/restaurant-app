@@ -16,23 +16,24 @@ import {PermissionsListComponent} from "../permissions-list/permissions-list.com
   templateUrl: './permissions-view.component.html',
   styleUrl: './permissions-view.component.css'
 })
-export class PermissionsViewComponent implements OnInit{
+export class PermissionsViewComponent implements OnInit {
   permissions: Permission[] = [];
+
   constructor(private matDialog: MatDialog, private permissionService: PermissionsService) {
   }
 
   ngOnInit(): void {
-        this.permissionService.getFirstPage().subscribe(data => {
-          this.permissions = data;
-        });
-    }
+    this.permissionService.getFirstPage().subscribe(data => {
+      this.permissions = data;
+    });
+  }
 
   addPermission() {
     const addPermissionDialog = this.matDialog.open(AddPermissionComponent, {});
 
     addPermissionDialog.afterClosed()
       .subscribe((data: CreatePermissionDto) => {
-        if(data){
+        if (data) {
           this.permissionService.create(data.permissionName)
             .subscribe(responseData => {
               this.permissions.push(responseData);

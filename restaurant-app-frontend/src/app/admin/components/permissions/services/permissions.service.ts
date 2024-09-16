@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../../../environment/environment";
 import {Permission} from "../model/permission";
 import {Observable} from "rxjs";
+import {GenericHttpClientService} from "../../../../services/generic-http-client.service";
 
 @Injectable({
   providedIn: 'root'
@@ -10,9 +11,10 @@ import {Observable} from "rxjs";
 export class PermissionsService {
   private endpoint: string = '/permissions';
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient, private genericHttpClientService: GenericHttpClientService) {
+  }
 
-  create(permissionName: string): Observable<Permission>{
+  create(permissionName: string): Observable<Permission> {
     return this.httpClient.post<Permission>(
       `${environment.apiUrl}${this.endpoint}/create`,
       {},
@@ -25,18 +27,10 @@ export class PermissionsService {
   }
 
   getFirstPage(): Observable<Permission[]> {
-    return this.findAllPaged(0,10);
+    return this.genericHttpClientService.getPagedList<Permission>(0, 10, this.endpoint);
   }
 
-  findAllPaged(pageNumber: number, pageSize: number): Observable<Permission[]> {
-    return this.httpClient.get<Permission[]>(
-      `${environment.apiUrl}${this.endpoint}`,
-      {
-        params: {
-          page: pageNumber,
-          pageSize: pageSize
-        }
-      }
-    )
+  findAllPaged(page: number, pageSize: number) {
+    return this.genericHttpClientService.getPagedList<Permission>(page, pageSize, this.endpoint);
   }
 }
