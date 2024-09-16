@@ -1,6 +1,7 @@
 import {Component, input, Input, OnInit} from '@angular/core';
 import {Permission} from "../../model/permission";
 import {PermissionsService} from "../../services/permissions.service";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-permissions-list',
@@ -10,8 +11,8 @@ import {PermissionsService} from "../../services/permissions.service";
   styleUrl: './permissions-list.component.css'
 })
 export class PermissionsListComponent{
-  private page = 1;
-  private pageSize = 10;
+  @Input() page = 1;
+  @Input() pageSize = 10;
   @Input({required: true}) permissions!: Permission[];
   lastLoadedPageSize = 10;
 
