@@ -44,4 +44,13 @@ public class RolePermissionsController {
         return ResponseEntity.ok(permissions);
     }
 
+    @DeleteMapping
+    public ResponseEntity<Void> removePermissionFromRole(
+            @RequestParam("permissionName") String permissionName,
+            @RequestParam("roleName") String roleName
+    ){
+        rolePermissionsManagementService.removePermissionFromRole(permissionName,roleName);
+
+        return ResponseEntity.ok().build();
+    }
 }

@@ -54,4 +54,12 @@ public class RolePermissionsManagementService {
                 .permissionNames(addedPermissionsList)
                 .build();
     }
+
+    @Transactional
+    public void removePermissionFromRole(String permissionName, String roleName) {
+        Permission permissionToRemove = permissionService.findByName(permissionName);
+        Role role = roleService.findByName(roleName);
+
+        rolePermissionService.removePermissionFromRole(permissionToRemove,role);
+    }
 }

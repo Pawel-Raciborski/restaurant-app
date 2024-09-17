@@ -25,4 +25,11 @@ public interface RolePermissionRepository extends JpaRepository<RolePermission,I
     WHERE r.name = :roleName
     """)
     List<Permission> findPermissionsForRole(@Param("roleName") String roleName, Pageable pageable);
+
+    @Modifying
+    @Query("""
+    DELETE FROM RolePermission rp
+    WHERE rp.role.id = :roleId AND rp.permission.id=:permissionToRemoveId
+    """)
+    void removePermissionFromRole(@Param("permissionToRemoveId") Integer permissionToRemoveId,@Param("roleId") Integer roleId);
 }

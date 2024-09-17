@@ -42,4 +42,8 @@ public class RolePermissionService {
 
         return rolePermissionRepository.findPermissionsForRole(roleName,pageable);
     }
+
+    public void removePermissionFromRole(Permission permissionToRemove, Role role) {
+        rolePermissionRepository.removePermissionFromRole(permissionToRemove.getId(),role.getId());
+    }
 }
