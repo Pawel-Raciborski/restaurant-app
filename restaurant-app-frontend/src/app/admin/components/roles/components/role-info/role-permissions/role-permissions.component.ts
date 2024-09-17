@@ -49,7 +49,6 @@ export class RolePermissionsComponent implements OnInit {
 
     this.roleService.assignPermissionsToRole(permissionsToAdd,this.role)
       .subscribe(createdRolePermissions => {
-        console.log(createdRolePermissions);
         this.rolePermissionNames.push(...createdRolePermissions.permissionNames);
       });
     this.clicked = false;
