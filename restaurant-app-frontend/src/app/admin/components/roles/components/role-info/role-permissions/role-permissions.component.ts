@@ -4,6 +4,7 @@ import {RoleService} from "../../../services/role.service";
 import {constants} from "../../../../../../../constants/constants";
 import {AddPermissionsToRoleComponent} from "../add-permissions-to-role/add-permissions-to-role.component";
 import {Permission} from "../../../../permissions/model/permission";
+import {HttpStatusCode} from "@angular/common/http";
 
 @Component({
   selector: 'app-role-permissions',
@@ -16,18 +17,18 @@ import {Permission} from "../../../../permissions/model/permission";
 })
 export class RolePermissionsComponent implements OnInit {
   @Input({required: true}) role!: Role;
-  rolePermissionsName: string[] = [];
+  rolePermissionNames: string[] = [];
   page= 0;
   pageSize= constants.defaultSize;
   lastLoadedPageSize = 0;
-  clicked =false;
+  clicked = false;
   constructor(private roleService: RoleService) {
   }
 
   ngOnInit(): void {
         this.roleService.getRolePermissions(this.role,this.page,this.pageSize)
           .subscribe(rolePermissionsName => {
-            this.rolePermissionsName.push(...rolePermissionsName);
+            this.rolePermissionNames.push(...rolePermissionsName);
             this.lastLoadedPageSize = rolePermissionsName.length;
             this.incrementPage();
         })
@@ -46,8 +47,19 @@ export class RolePermissionsComponent implements OnInit {
   addPermissions(permissions:Permission[]) {
     let permissionsToAdd = permissions.map(p => p.name);
 
-    // TODO add httpClient
-    console.log(permissionsToAdd);
+    this.roleService.assignPermissionsToRole(permissionsToAdd,this.role)
+      .subscribe(createdRolePermissions => {
+        console.log(createdRolePermissions);
+        this.rolePermissionNames.push(...createdRolePermissions.permissionNames);
+      });
     this.clicked = false;
+  }
+
+  removePermission(rolePermissionName: string) {
+    this.roleService.removeRolePermission(rolePermissionName,this.role).subscribe(httpResponse => {
+      if(httpResponse.status === HttpStatusCode.Ok){
+        this.rolePermissionNames = this.rolePermissionNames.filter(p => p !== rolePermissionName);
+      }
+    })
   }
 }

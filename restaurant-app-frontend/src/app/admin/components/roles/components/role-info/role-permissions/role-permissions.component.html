@@ -9,15 +9,18 @@
       </div>
     } @else {
       <div class="col-md">
-        <app-add-permissions-to-role (selectedPermissionsEmitter)="addPermissions($event)"></app-add-permissions-to-role>
+        <app-add-permissions-to-role [assignedPermissionNames]="rolePermissionNames" (selectedPermissionsEmitter)="addPermissions($event)"></app-add-permissions-to-role>
       </div>
     }
   </div>
 
-  <div class="row">
-    @for(rolePermission of rolePermissionsName; let i=$index; track i){
-      <div class="col-md border-1 rounded-2">
+  <div class="row mt-4">
+    @for(rolePermission of rolePermissionNames; let i=$index; track i){
+      <div class="col-md-10 border-1 rounded-2">
         {{rolePermission}}
+      </div>
+      <div class="col-md-2">
+        <button (click)="removePermission(rolePermission)" class="btn btn-danger">Usuń</button>
       </div>
     }
   </div>

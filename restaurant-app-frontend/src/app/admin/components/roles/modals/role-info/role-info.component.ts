@@ -1,5 +1,5 @@
 import {Component, Inject} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogContent} from "@angular/material/dialog";
+import {MAT_DIALOG_DATA, MatDialogContent, MatDialogRef} from "@angular/material/dialog";
 import {Role} from "../../model/role";
 import {RoleService} from "../../services/role.service";
 import {RolePermissionsComponent} from "../../components/role-info/role-permissions/role-permissions.component";
@@ -23,12 +23,14 @@ import {Permission} from "../../../permissions/model/permission";
   styleUrl: './role-info.component.css'
 })
 export class RoleInfoComponent {
-  clicked = false;
   constructor(
     @Inject(MAT_DIALOG_DATA) public role: Role,
-    private roleService: RoleService,
-    public permissionService: PermissionsService
+    private roleDialogRef: MatDialogRef<RoleInfoComponent>
   ) {
 
+  }
+
+  closeModal() {
+    this.roleDialogRef.close({});
   }
 }

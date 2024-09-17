@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Permission} from "../../../../permissions/model/permission";
 import {PermissionsService} from "../../../../permissions/services/permissions.service";
 
@@ -13,6 +13,7 @@ export class AddPermissionsToRoleComponent implements OnInit{
   availablePermissions: Permission[] = [];
   selectedPermissions: Permission[] = [];
   @Output() selectedPermissionsEmitter: EventEmitter<Permission[]> = new EventEmitter<Permission[]>();
+  @Input({required:true}) assignedPermissionNames!: string[];
   page=0;
   pageSize= 10;
   lastLoadedPageSize= 0;
@@ -21,11 +22,16 @@ export class AddPermissionsToRoleComponent implements OnInit{
 
   ngOnInit(): void {
         this.permissionService.findAllPaged(this.page,this.pageSize).subscribe(respData => {
+          respData = this.filterData(respData);
           this.availablePermissions.push(...respData);
           this.lastLoadedPageSize = respData.length;
           this.incrementPage();
         })
     }
+
+  private filterData(permissions: Permission[]) {
+    return permissions.filter(p => !this.assignedPermissionNames.includes(p.name));
+  }
 
   private incrementPage() {
     if(this.lastLoadedPageSize === this.pageSize){
