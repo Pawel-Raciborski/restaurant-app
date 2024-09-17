@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -25,8 +26,8 @@ public class WorkerService {
     public Worker create(WorkerDataFormDto workerDataFormDto) {
         User registeredUser = userService.create(workerDataFormDto.registerUserData());
 
-        Role roleToAssign = roleService.findByName(workerDataFormDto.role());
-        userRoleService.createUserRole(registeredUser,roleToAssign);
+        List<Role> rolesToAssign = roleService.findAllByName(workerDataFormDto.roles());
+        rolesToAssign.forEach(role -> userRoleService.createUserRole(registeredUser,role));
         Worker newWorker = buildWorkerData(registeredUser,workerDataFormDto.pesel(),workerDataFormDto.hourlyRate());
 
         return workerRepository.save(newWorker);
@@ -34,8 +35,8 @@ public class WorkerService {
 
     private Worker buildWorkerData(User registeredUser, String pesel, BigDecimal hourlyRate) {
         return Worker.builder()
-                .user(registeredUser)
                 .pesel(pesel)
+                .user(registeredUser)
                 .hourlyRate(hourlyRate)
                 .build();
     }
